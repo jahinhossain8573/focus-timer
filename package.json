@@ -11,6 +11,8 @@
     "contract:emit": "prisma contract emit"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
     "@prisma/orm-postgres": "^8.0.0-rc.8",
     "dotenv": "^17.4.2",
     "next": "16.3.3",
@@ -26,7 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
-    "prisma": "^8.0.0-rc.10",
+    "prisma": "7.10.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

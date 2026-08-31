@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { prisma } from "@/prisma";
+import { PrismaClient } from "../generated/prisma";
+import prisma from "@/app/db";
 
 const buttonStyling = "bg-slate-800 px-2 py-1 rounded-2xl hover:bg-slate-700";
 
