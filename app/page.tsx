@@ -61,8 +61,16 @@ export default function App() {
           <b>Pomodoro Timer</b>
         </h1>
         <span className="text-2xl">
-          Minutes Focused: {Math.trunc(totalTime / 1000 / 60).toString()}:
-          {(Math.trunc(totalTime / 1000) % 60).toString()}
+          Minutes Focused:{" "}
+          {Math.trunc(
+            db.reduce((sum, session) => sum + session.time, 0) / 1000 / 60,
+          ).toString()}
+          :
+          {(
+            Math.trunc(
+              db.reduce((sum, session) => sum + session.time, 0) / 1000,
+            ) % 60
+          ).toString()}
         </span>
       </header>
       <div className="text-amber-50 text-center p-10">
