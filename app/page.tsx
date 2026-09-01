@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { PrismaClient } from "../generated/prisma";
-import prisma from "@/app/db";
+import { dbLog } from "./components";
+//import prisma from "@/app/db";
 
 const buttonStyling = "bg-slate-800 px-2 py-1 rounded-2xl hover:bg-slate-700";
 
 export default function App() {
+  //prisma.$connect();
   const [isRunning, alterIsRunning] = useState(false);
   const [timeLeft, alterTimeLeft] = useState(3600 * 1000);
   const [totalTime, alterTotalTime] = useState(0);
   const [focusTime, alterFocusTime] = useState(3600 * 1000);
+  const [taskName, alterTaskName] = useState("Miscellaneous Task");
   const [timerStarted, alterTimerStarted] = useState(false);
   const targetTime = useRef(0);
   const intervalID = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -39,9 +41,11 @@ export default function App() {
   }
 
   function onReset() {
+    dbLog(focusTime - timeLeft, taskName);
     alterTotalTime(totalTime + focusTime - timeLeft);
     targetTime.current = Date.now();
     alterTimerStarted(false);
+    alterTaskName("Miscellaneous Task");
   }
 
   return (
@@ -63,7 +67,15 @@ export default function App() {
               {(Math.ceil(timeLeft / 1000) % 60).toString()}
             </>
           ) : (
-            <>
+            <div className="flex justify-center gap-4">
+              <input
+                type="text"
+                placeholder="Task Name"
+                className="bg-slate-800 rounded-2xl px-4"
+                onChange={(e) => {
+                  alterTaskName(e.target.value);
+                }}
+              ></input>
               <select
                 value={focusTime}
                 onChange={(e) => {
@@ -85,7 +97,7 @@ export default function App() {
                 <option value={55 * 60 * 1000}>55 minutes</option>
                 <option value={60 * 60 * 1000}>1 hour</option>
               </select>
-            </>
+            </div>
           )}
         </h2>
         {isRunning ? (
