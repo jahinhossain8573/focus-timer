@@ -11,4 +11,13 @@ export async function dbLog(duration, title) {
       title: title,
     },
   });
+  //return prisma.session.findMany();
+}
+
+export async function dbGet() {
+  return await prisma.session.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 }
